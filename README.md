@@ -2,6 +2,8 @@
 
 ### *The Zero-Knowledge, Offline-First Local AI Vault & Second Brain.*
 
+🚀 **Live Production Deployment:** [https://privatemind.vercel.app/](https://privatemind.vercel.app/)
+
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-emerald?style=flat-square&logo=vercel)](https://privatemind.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-indigo.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Architecture: Local--First](https://img.shields.io/badge/Architecture-Local--First-blue?style=flat-square)](#architecture--security-paradigm)
