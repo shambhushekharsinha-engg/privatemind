@@ -395,6 +395,8 @@ export default function Dashboard() {
       setActiveNote(null);
     } else if (type === 'CLEAR_FILTER') {
       setSelectedTagFilter(null);
+    } else if (type === 'BURN_VAULT') {
+      handleFactoryReset();
     }
     setIsCommandPaletteOpen(false);
     setPaletteSearch('');
@@ -415,6 +417,7 @@ export default function Dashboard() {
       setFolders([]);
       setNotes([]);
       setChatHistory([]);
+      setIsCommandPaletteOpen(false);
 
       localStorage.removeItem('pm_vault_hash');
       await folderDB.clear();
@@ -473,6 +476,12 @@ export default function Dashboard() {
                   <span className="text-zinc-600">Enter</span>
                 </button>
               )}
+              {paletteSearch === '/burn' && (
+                <button onClick={() => executePaletteCommand('BURN_VAULT')} className="w-full text-left rounded-lg p-2 text-xs bg-rose-600/20 border border-rose-500/30 text-rose-400 flex items-center justify-between animate-pulse">
+                  <span>💥 CRITICAL: Execute Emergency Cryptographic Vault Burn (Wipe All Local Data)</span>
+                  <span className="text-zinc-600">Enter</span>
+                </button>
+              )}
               {paletteFilteredNotes.length > 0 ? (
                 paletteFilteredNotes.map(n => (
                   <button key={n.id} onClick={() => executePaletteCommand('OPEN_NOTE', n)} className="w-full text-left rounded-lg p-2 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white flex flex-col gap-0.5 border border-transparent hover:border-zinc-700/50 transition">
@@ -480,12 +489,13 @@ export default function Dashboard() {
                     <span className="text-[10px] text-zinc-500 truncate">{n.content || "Empty content field context."}</span>
                   </button>
                 ))
-              ) : paletteSearch.trim() !== '' && paletteSearch !== '/lock' ? (
+              ) : paletteSearch.trim() !== '' && paletteSearch !== '/lock' && paletteSearch !== '/burn' ? (
                 <div className="text-center py-6 text-xs text-zinc-600">No matching files or structural index records discovered.</div>
               ) : (
                 <div className="p-2 space-y-2">
                   <div className="text-xxs uppercase tracking-wider font-semibold text-zinc-600 px-1">Quick Utilities</div>
                   <button onClick={() => executePaletteCommand('LOCK_VAULT')} className="w-full text-left rounded-lg p-2 text-xs text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 transition">🔒 /lock — Secure and close vault instantly</button>
+                  <button onClick={() => executePaletteCommand('BURN_VAULT')} className="w-full text-left rounded-lg p-2 text-xs text-rose-400/80 hover:bg-rose-950/20 hover:text-rose-400 transition">💥 /burn — Purge and destroy all vault contents</button>
                   {selectedTagFilter && <button onClick={() => executePaletteCommand('CLEAR_FILTER')} className="w-full text-left rounded-lg p-2 text-xs text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 transition">🏷️ /clear-filter — Reset active tag sorting</button>}
                 </div>
               )}
@@ -574,7 +584,7 @@ export default function Dashboard() {
             </div>
           </nav>
 
-          <div className="p-3 border-t border-zinc-800 bg-zinc-900/20">
+          <div className="p-3 border-t border-zinc-800 bg-zinc-900/20 space-y-2">
             <button 
               onClick={handleFactoryReset}
               className="flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-800/60 bg-zinc-950 px-3 py-2 text-xs font-medium text-zinc-500 transition hover:bg-rose-950/30 hover:text-rose-400 hover:border-rose-900/50"
@@ -628,7 +638,7 @@ export default function Dashboard() {
               <div className="flex flex-col gap-4 h-full flex-1">
                 <div className="flex flex-wrap items-center gap-1.5 pb-2 border-b border-zinc-900">
                   {(activeNote.tags || []).map((tag) => (
-                    <span key={tag} className="inline-flex items-center gap-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 text-[10px] font-semibold text-indigo-400⚙️">
+                    <span key={tag} className="inline-flex items-center gap-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 text-[10px] font-semibold text-indigo-400">
                       #{tag}
                       <button onClick={() => handleRemoveTag(tag)} className="text-indigo-400/40 hover:text-rose-400 font-bold ml-0.5 transition">×</button>
                     </span>
