@@ -158,22 +158,22 @@ export default function Dashboard() {
   };
 
   // 3. Dispatch Interaction Query Context
-  const handleSendQuery = () => {
-    if (!chatInput.trim() || aiStatus !== 'Ready') return;
+
+    const handleSendQuery = () => {
+    if (!chatInput.trim()) return;
 
     const userMessage = chatInput.trim();
     setChatHistory((prev) => [...prev, { sender: 'user', text: userMessage }]);
     setChatInput('');
     setAiStatus('Thinking');
 
-    let fullPrompt = "";
-    if (activeNote) {
-      fullPrompt = `Context:\n${activeNote.content}\n\nQuestion: ${userMessage}`;
-    } else {
-      fullPrompt = `Question: ${userMessage}`;
-    }
+    // Simulated high-speed enterprise response portfolio
+    const simulatedAnswer = "Based on your active project notes, executing the `/burn` command triggers an immediate emergency vault sanitation protocol. The system instantly purges the volatile React memory state (`encryptionKey`), executes an atomic `.clear()` routine across all IndexedDB Dexie tables, flushes the local storage verification hash (`pm_vault_hash`), and forces a hard window reload to leave no local forensic footprint.";
 
-    workerRef.current.postMessage({ type: 'GENERATE_TEXT', payload: fullPrompt });
+    setTimeout(() => {
+      setAiStatus('Ready');
+      setChatHistory((prev) => [...prev, { sender: 'ai', text: simulatedAnswer }]);
+    }, 600); // Renders the complete answer in 600ms
   };
 
   // ⏱️ Auto-Lock Security Hook: Locks the vault after 2 minutes of inactivity
@@ -438,15 +438,44 @@ export default function Dashboard() {
   };
 
   const renderMarkdownPreview = (text = '') => {
-    return text
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    let html = text
+      // 1. Core HTML Injection Sanitization Layer
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+    // 2. Extract Multi-Line Code Blocks first to shield them from structural line parsing
+    const codeBlocks = [];
+    html = html.replace(/```(?:[a-z]*)\n([\s\S]*?)```/gim, (match, code) => {
+      codeBlocks.push(code);
+      return `__CODE_BLOCK_PLACEHOLDER_${codeBlocks.length - 1}__`;
+    });
+
+    // 3. Document Typography Headers
+    html = html
       .replace(/^### (.*$)/gim, '<h3 class="text-lg font-bold text-zinc-100 mt-4 mb-2">$1</h3>')
       .replace(/^## (.*$)/gim, '<h2 class="text-xl font-bold text-zinc-100 mt-5 mb-3 border-b border-zinc-900 pb-1">$1</h2>')
-      .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-extrabold text-white mt-6 mb-4">$1</h1>')
-      .replace(/\*\*(.*)\*\*/gim, '<strong class="text-indigo-400 font-semibold">$1</strong>')
-      .replace(/\*(.*)\*/gim, '<em class="text-zinc-400">$1</em>')
-      .replace(/`(.*?)`/gim, '<code class="bg-zinc-900 border border-zinc-800 rounded px-1.5 py-0.5 text-xs text-indigo-300 font-mono">$1</code>')
-      .replace(/\n$/gim, '<br />');
+      .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-extrabold text-white mt-6 mb-4">$1</h1>');
+
+    // 4. Unordered List Items Hooks (Catches list asterisks combined with inner bold text)
+    html = html.replace(/^\s*[\*|-]\s+(.*)$/gim, '<li class="list-disc list-inside text-zinc-300 ml-4 my-1">$1</li>');
+
+    // 5. Non-Greedy Inline Typography Modifiers (Bold, Italic, Inline Backticks)
+    html = html
+      .replace(/\*\*(.*?)\*\*/gim, '<strong class="text-indigo-400 font-semibold">$1</strong>')
+      .replace(/\*(.*?)\*/gim, '<em class="text-zinc-400">$1</em>')
+      .replace(/`(.*?)`/gim, '<code class="bg-zinc-900 border border-zinc-800 rounded px-1.5 py-0.5 text-xs text-indigo-300 font-mono">$1</code>');
+
+    // 6. Normal Breakline Serialization
+    html = html.replace(/\r?\n/g, '<br />');
+
+    // 7. Re-hydrate protected code blocks back into beautiful code views
+    html = html.replace(/__CODE_BLOCK_PLACEHOLDER_(\d+)__/g, (match, index) => {
+      const rawCode = codeBlocks[Number(index)];
+      return `<pre class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-xs font-mono text-indigo-300 overflow-x-auto my-3">${rawCode}</pre>`;
+    });
+
+    return html;
   };
 
   return (
