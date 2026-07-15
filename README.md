@@ -18,25 +18,29 @@
 ## 🖼️ Visual Workspace Tour
 
 <div align="center">
-  <img src="./public/screenshots/vault-gateway.png" alt="Zero-Knowledge Cryptographic Gateway Login Modal" width="100%" style="border-radius: 8px; border: 1px solid #27272a;" />
+  <img src="./public/screenshots/vault-gateway.png" alt="Zero-Knowledge Cryptographic Gateway Login Modal" width="100%" style="border-radius: 8px; border: 1px solid #27272a; margin-bottom: 16px;" />
   <p><em>Figure 1: The Secure Zero-Knowledge Gateway Portal utilizing localized client-side SHA-256 validation tokens.</em></p>
 </div>
 
 <br />
 
 <div align="center">
-  <img src="./public/screenshots/dashboard-main.png" alt="PrivateMind Enterprise Secure Dashboard View" width="100%" style="border-radius: 8px; border: 1px solid #27272a;" />
+  <img src="./public/screenshots/dashboard-main.png" alt="PrivateMind Enterprise Secure Dashboard View" width="100%" style="border-radius: 8px; border: 1px solid #27272a; margin-bottom: 16px;" />
   <p><em>Figure 2: The Core Workspace Dashboard highlighting live sandbox metrics telemetry and active client-side AES-GCM encryption engines.</em></p>
 </div>
 
 <br />
 
 <div align="center">
-  <div style="display: flex; gap: 12px; justify-content: center;">
-    <img src="./public/screenshots/editor-canvas.png" alt="PrivateMind Markdown Dynamic Editor Canvas" width="49%" style="border-radius: 8px; border: 1px solid #27272a;" />
-    <img src="./public/screenshots/ai-download.png" alt="Local Hardware Offline AI Sub-Thread Hydration" width="49%" style="border-radius: 8px; border: 1px solid #27272a;" />
-  </div>
-  <p><em>Figure 3: The custom Markdown dynamic document pane (Left) and the off-thread web worker local LLM instance caching engine resources (Right).</em></p>
+  <img src="./public/screenshots/editor-canvas.png" alt="PrivateMind Markdown Dynamic Editor Canvas" width="100%" style="border-radius: 8px; border: 1px solid #27272a; margin-bottom: 16px;" />
+  <p><em>Figure 3: The custom Markdown dynamic document management pane featuring unified state metrics.</em></p>
+</div>
+
+<br />
+
+<div align="center">
+  <img src="./public/screenshots/ai-download.png" alt="Local Hardware Offline AI Sub-Thread Hydration" width="350px" style="border-radius: 8px; border: 1px solid #27272a; margin-bottom: 16px;" />
+  <p><em>Figure 4: The off-thread web worker local LLM instance caching engine resources directly inside the browser sandbox.</em></p>
 </div>
 
 ---
@@ -135,38 +139,38 @@ privatemind/
 
 ## 1. Cryptographic Specification & Key Lifecycle
 
-PrivateMind adheres strictly to a zero-knowledge data architecture model utilizing the native *** W3C Web Crypto API ***:
+PrivateMind adheres strictly to a zero-knowledge data architecture model utilizing the native **W3C Web Crypto API**:
 
-*** Authentication Hashing: ***
+* **Authentication Hashing:**
     When a master key is registered or provided, it undergoes non-reversible, one-way structural verification hashing via native SHA-256. The computed hex digest is stored in localStorage strictly for login gating comparisons.
 
-*** Volatile In-Memory Keying: *** 
+* **Volatile In-Memory Keying:** 
     The raw password string is never committed to persistent disk spaces. It resides exclusively in volatile React component state (encryptionKey), ensuring that a memory dump or a system sleep action cannot expose keys.
 
-*** Data Transit Encryption: ***
+* **Data Transit Encryption:**
     All content payloads are processed through an AES-GCM (Advanced Encryption Standard - Galois/Counter Mode) engine using a dynamically generated Cryptographically Strong Pseudo-Random Number (CSPRNG) Initialization Vector (IV). Payload strings are explicitly prefixed with "ENCRYPTED:" post-transformation before hitting the database engine, completely preventing accidental plaintext leaks.
 
 ## 2. Multi-Threaded Asynchronous AI Orchestration
 
 To prevent user interface freezing during heavy text generation or inference sequences, the AI compilation pipeline is completely decoupled from the React main rendering thread:
 
-*** Web Worker Sub-Thread Integration: ***
+* **Web Worker Sub-Thread Integration:**
     The system provisions a dedicated worker instance (ai.worker.js) using explicit Vite module instantiation patterns (new URL(..., import.meta.url)).
 
-*** Volatile Context Injection: ***
+* **Volatile Context Injection:**
     When a prompt query is dispatched, the React layer packages the contextually active, decrypted in-memory text variables into a transient event post-message. The encrypted database ciphertext blocks are never exposed to the AI pipeline, ensuring absolute data purity.
 
-*** Real-Time Token Streaming: ***
+* **Real-Time Token Streaming:**
     The worker pipes raw token stream data back across the main boundary using atomic STREAM_TOKEN event handlers, resulting in fluent, real-time UI generation rendering updates.
 
 ## 3. Transactional Offline Database Layer
 
 The data persistence layout is constructed over Dexie.js, transforming standard relational indexes into optimized, high-velocity local storage blocks:
 
-*** Atomic Transacting Cascades: ***
+* **Atomic Transacting Cascades:**
     Folder deletions utilize a read-write database transaction hook (db.transaction('rw', ...)). If a folder deletion succeeds but its cascading sub-notes database drop experiences an interrupt, the complete transaction rolls back automatically to protect database integrity.
 
-*** Optimized Index Sorting: ***
+* **Optimized Index Sorting:**
     Custom query structures leverage native primary key mappings (++id) and explicit compound index order configurations (orderBy('updatedAt').reverse()) to handle high-volume data streams with sub-millisecond seek speeds.
 
 # 💎 Enterprise Product Feature Matrix
@@ -175,20 +179,20 @@ The data persistence layout is constructed over Dexie.js, transforming standard 
 
 Instantly toggle a centralized productivity panel. Search effortlessly through multi-note context indexes or type automated system operational directive calls:
 
-*** /lock *** — Triggers an instant structural memory purge, clearing encryption vectors and locking down app layers.
+* **/lock** — Triggers an instant structural memory purge, clearing encryption vectors and locking down app layers.
 
-*** /burn *** — Initiates an emergency cryptographic destruct sequence, completely wiping all local database instances, local configuration flags, and volatile storage frameworks instantly.
+* **/burn** — Initiates an emergency cryptographic destruct sequence, completely wiping all local database instances, local configuration flags, and volatile storage frameworks instantly.
 
-*** /clear-filter *** — Drops active metadata tag arrays and resets navigation view parameters.
+* **/clear-filter** — Drops active metadata tag arrays and resets navigation view parameters.
 
 ## 2. Live Sandbox Footprint Telemetry Engine
 
 The main system metrics grid actively tracks data volatility weights:
 
-*** Physical Footprint: ***
+* **Physical Footprint:**
     Computes precision data storage consumption rates dynamically using native URI component character string measurements (encodeURIComponent), tracking exactly how many real bytes of storage space your data occupies on the device hard drive.
 
-*** Worker State Watcher: ***
+* **Worker State Watcher:**
     Monitors sub-thread hydration logs, displaying live download progress percentages during background engine model caching.
 
 ## 3. Markdown Canvas & Dual View Rendering Framework
@@ -207,23 +211,23 @@ Maintains runtime execution states by pushing active state markers onto internal
 
 Allows users to seamlessly manage local data structures:
 
-*** Export: *** 
+* **Export:** 
     Packs folder matrix nodes, tag metadata, and ciphertext record arrays cleanly into a portable .json backup archive sheet.
 
-*** Import Integration: *** 
+* **Import Integration:** 
     Restores complete secure database states while preserving structural database indexes fully offline.
 
 # 💻 Tech Stack & Dependencies
 
-*** Frontend Engine: *** React 18, Vite Bundling Framework
+* **Frontend Engine:** React 18, Vite Bundling Framework
 
-*** Styling Architecture: *** Tailwind CSS Engine (Layered Glassmorphic Visual System Tokens)
+* **Styling Architecture:** Tailwind CSS Engine (Layered Glassmorphic Visual System Tokens)
 
-*** Database Engine: *** Dexie.js (Transactional IndexedDB Wrapper)
+* **Database Engine:** Dexie.js (Transactional IndexedDB Wrapper)
 
-*** Cryptography Modules: *** Native W3C Web Crypto API Framework
+* **Cryptography Modules:** Native W3C Web Crypto API Framework
 
-*** Concurrence Layer: *** Web Worker Multi-Thread Native Sub-Pipelines
+* **Concurrence Layer:** Web Worker Multi-Thread Native Sub-Pipelines
 
 # 📥 Local Installation & Setup
 
@@ -252,14 +256,15 @@ npm run build
 PrivateMind contains an internal activity tracker hook that listens to global browser framework mouse movements, keystrokes, and touch events. If the system remains inactive for 120,000 milliseconds (2 minutes), the application drops the master cryptographic key array, clears internal layout caches, blurs viewport elements, and re-engages the zero-knowledge entry portal automatically.
 
 ## 👥 Developer Profile
-*** Shambhu Shekhar Sinha ***
+ **Shambhu Shekhar Sinha**
  Role: Lead Software & Cryptographic Architecture Engineer  
  Specialization: Computer Science & Engineering (Artificial Intelligence & Machine Learning)
- Institution: Greater Noida Institute of Technology (GNIOT) · Dr. A.P.J. Abdul Kalam Technical University (AKTU)  Location: Greater Noida, India  GitHub: @shambhushekharsinha-engg
+ Institution: Greater Noida Institute of Technology (GNIOT) · Dr. A.P.J. Abdul Kalam Technical University (AKTU)  Location: Greater Noida, India  
+ GitHub: @shambhushekharsinha-engg
  
  # 📄 License
 
- Distributed under the *** MIT License ***. See below for full legal runtime permissions:
+ Distributed under the **MIT License**. See below for full legal runtime permissions:
 
  ```text
 
