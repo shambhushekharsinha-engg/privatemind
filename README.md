@@ -43,6 +43,17 @@
   <p><em>Figure 4: The off-thread web worker local LLM instance caching engine resources directly inside the browser sandbox.</em></p>
 </div>
 
+
+---
+
+## 📺 Project Walkthrough & Demo Video
+
+To see the zero-knowledge security vault, custom markdown engine, and the multi-threaded browser AI Copilot running live in real-time, watch our 2-minute demo:
+
+[![PrivateMind Enterprise Demo](https://img.youtube.com/vi/6GmA8_ygMQY/0.jpg)](https://youtu.be/6GmA8_ygMQY)
+
+👉 **[Click Here to Watch the Full Video Demo on YouTube](https://youtu.be/6GmA8_ygMQY)**
+
 ---
 
 ## 🚀 Core Architectural Pillars
